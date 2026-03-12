@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AirHQ — Wireless Remote for Android TV</title>
+<meta name="description" content="Control your Android TV box wirelessly from your iPhone. Remote, touchpad, shell, screenshot — all over WiFi.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #060C16;
+    --surface: #0D1B2A;
+    --surface2: #112240;
+    --border: #1B2D44;
+    --text: #C8D6E5;
+    --text-dim: #6B7F99;
+    --accent: #00E5FF;
+    --accent-dim: #00BCD4;
+    --white: #EDF2F7;
+  }
+
+  body {
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* Grain overlay */
+  .grain {
+    position: fixed; inset: 0; pointer-events: none; z-index: 100;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  }
+
+  /* Hero */
+  .hero {
+    position: relative;
+    text-align: center;
+    padding: 80px 24px 60px;
+    overflow: hidden;
+  }
+
+  .hero-glow {
+    position: absolute; top: -300px; left: 50%; transform: translateX(-50%);
+    width: 800px; height: 600px; border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(0,229,255,0.07) 0%, rgba(0,188,212,0.03) 40%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-glow-2 {
+    position: absolute; top: -100px; left: 50%; transform: translateX(-50%);
+    width: 400px; height: 300px; border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(0,229,255,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .logo {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 42px; font-weight: 500;
+    color: var(--white);
+    letter-spacing: -1px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .logo-dot {
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 20px rgba(0,229,255,0.6), 0 0 60px rgba(0,229,255,0.2);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(0,229,255,0.6), 0 0 60px rgba(0,229,255,0.2); }
+    50% { box-shadow: 0 0 30px rgba(0,229,255,0.8), 0 0 80px rgba(0,229,255,0.3); }
+  }
+
+  .tagline {
+    font-size: 18px; color: var(--text-dim);
+    margin-top: 16px; position: relative; z-index: 1;
+    font-weight: 400;
+  }
+
+  .tagline-zh {
+    font-size: 15px; color: var(--text-dim);
+    margin-top: 6px; position: relative; z-index: 1;
+    opacity: 0.7;
+  }
+
+  /* CTA */
+  .cta-row {
+    display: flex; justify-content: center; gap: 12px;
+    margin-top: 32px; position: relative; z-index: 1;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 28px; border-radius: 10px;
+    font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600;
+    text-decoration: none; transition: all 0.25s;
+    cursor: pointer;
+  }
+
+  .btn-primary {
+    background: var(--accent); color: #060C16;
+    box-shadow: 0 4px 24px rgba(0,229,255,0.25);
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 6px 32px rgba(0,229,255,0.4);
+    transform: translateY(-1px);
+  }
+
+  .btn-ghost {
+    background: transparent; color: var(--accent);
+    border: 1px solid rgba(0,229,255,0.3);
+  }
+
+  .btn-ghost:hover {
+    background: rgba(0,229,255,0.08);
+    border-color: var(--accent);
+  }
+
+  .btn svg { width: 18px; height: 18px; }
+
+  /* Features grid */
+  .features {
+    max-width: 820px; margin: 0 auto;
+    padding: 20px 24px 60px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 14px;
+  }
+
+  .feature {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+
+  .feature:hover {
+    border-color: rgba(0,229,255,0.3);
+    transform: translateY(-2px);
+  }
+
+  .feature-icon {
+    font-size: 28px;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .feature h3 {
+    font-size: 15px; font-weight: 600;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+
+  .feature p {
+    font-size: 13.5px;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+
+  /* Arc illustration */
+  .illustration {
+    display: flex; justify-content: center;
+    padding: 10px 24px 50px;
+    position: relative;
+  }
+
+  .illustration svg {
+    width: 320px; height: 160px;
+    opacity: 0.7;
+  }
+
+  /* How it works */
+  .how-section {
+    max-width: 600px; margin: 0 auto;
+    padding: 0 24px 60px;
+    text-align: center;
+  }
+
+  .how-section h2 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; font-weight: 500;
+    color: var(--accent-dim);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 28px;
+  }
+
+  .steps {
+    display: flex; flex-direction: column; gap: 0;
+    text-align: left;
+  }
+
+  .step {
+    display: flex; gap: 16px;
+    padding: 16px 0;
+    position: relative;
+  }
+
+  .step:not(:last-child)::after {
+    content: '';
+    position: absolute; left: 15px; top: 48px; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--accent-dim), transparent);
+    opacity: 0.3;
+  }
+
+  .step-num {
+    width: 32px; height: 32px; min-width: 32px;
+    background: rgba(0,229,255,0.1);
+    border: 1px solid rgba(0,229,255,0.2);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; font-weight: 500;
+    color: var(--accent);
+  }
+
+  .step-text h4 {
+    font-size: 14px; color: var(--white); font-weight: 600;
+    margin-bottom: 2px;
+  }
+
+  .step-text p {
+    font-size: 13px; color: var(--text-dim);
+  }
+
+  /* Footer nav */
+  .footer-nav {
+    max-width: 600px; margin: 0 auto;
+    padding: 0 24px 40px;
+    display: flex; justify-content: center; gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .footer-link {
+    display: flex; align-items: center; gap: 8px;
+    padding: 14px 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 0.25s;
+    min-width: 180px;
+    justify-content: center;
+  }
+
+  .footer-link:hover {
+    border-color: rgba(0,229,255,0.3);
+    background: var(--surface2);
+  }
+
+  .footer-link .fl-icon { font-size: 18px; }
+
+  .footer-link .fl-text {
+    font-size: 14px; font-weight: 500;
+    color: var(--white);
+  }
+
+  .footer-link .fl-sub {
+    font-size: 11px;
+    color: var(--text-dim);
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 40px 24px;
+    font-size: 13px;
+    color: var(--text-dim);
+    border-top: 1px solid var(--border);
+  }
+
+  footer a {
+    color: var(--accent-dim);
+    text-decoration: none;
+    margin: 0 8px;
+  }
+
+  footer a:hover { color: var(--accent); }
+
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    background: rgba(0,229,255,0.08);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: var(--accent);
+  }
+
+  @media (max-width: 480px) {
+    .hero { padding: 50px 16px 40px; }
+    .logo { font-size: 32px; }
+    .tagline { font-size: 16px; }
+    .features { padding: 10px 16px 40px; grid-template-columns: 1fr; }
+    .footer-nav { flex-direction: column; align-items: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow-2"></div>
+
+  <div class="logo">
+    <span class="logo-dot"></span> AirHQ
+  </div>
+  <p class="tagline">Wireless Remote Control for Android TV</p>
+  <p class="tagline-zh">安卓电视盒子无线遥控器</p>
+
+  <div class="cta-row">
+    <a href="#" class="btn btn-primary">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5C17.88 20.74 17 21.95 15.66 21.97C14.32 21.99 13.89 21.18 12.37 21.18C10.84 21.18 10.37 21.95 9.1 21.99C7.79 22.03 6.8 20.68 5.96 19.47C4.25 16.56 2.93 11.3 4.7 7.72C5.57 5.94 7.36 4.86 9.28 4.84C10.56 4.82 11.78 5.71 12.56 5.71C13.34 5.71 14.82 4.62 16.39 4.8C17.06 4.83 18.88 5.07 20.04 6.79C19.92 6.87 17.57 8.24 17.6 11.11C17.63 14.57 20.55 15.72 20.58 15.73C20.55 15.81 20.12 17.36 18.71 19.5ZM13 3.5C13.73 2.67 14.94 2.04 15.94 2C16.07 3.17 15.6 4.35 14.9 5.19C14.21 6.04 13.07 6.7 11.95 6.61C11.8 5.46 12.36 4.26 13 3.5Z"/></svg>
+      App Store
+    </a>
+    <a href="support.html" class="btn btn-ghost">Get Started</a>
+  </div>
+</section>
+
+<!-- Phone → TV illustration -->
+<div class="illustration">
+  <svg viewBox="0 0 400 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Phone -->
+    <rect x="40" y="40" width="44" height="72" rx="8" stroke="#3A5068" stroke-width="1.5" fill="#0D1B2A"/>
+    <rect x="46" y="48" width="32" height="56" rx="3" fill="#0C3550"/>
+    <rect x="55" y="44" width="14" height="2" rx="1" fill="#1A2636"/>
+    <circle cx="84" cy="70" r="3" fill="#00E5FF" opacity="0.8"/>
+    <!-- Arc -->
+    <path d="M 88 70 Q 200 0 312 70" stroke="#00E5FF" stroke-width="2" opacity="0.5"/>
+    <path d="M 88 70 Q 200 5 312 70" stroke="#00BCD4" stroke-width="6" opacity="0.08"/>
+    <!-- Particles -->
+    <circle cx="140" cy="40" r="2" fill="#00E5FF" opacity="0.6"/>
+    <circle cx="200" cy="22" r="2.5" fill="#00E5FF" opacity="0.7"/>
+    <circle cx="260" cy="40" r="2" fill="#00E5FF" opacity="0.6"/>
+    <!-- TV -->
+    <rect x="280" y="35" width="80" height="65" rx="6" stroke="#3A5068" stroke-width="1.5" fill="#0D1B2A"/>
+    <rect x="287" y="42" width="66" height="51" rx="3" fill="#0C3550"/>
+    <rect x="308" y="100" width="24" height="8" rx="1" fill="#1A2636"/>
+    <rect x="300" y="108" width="40" height="3" rx="1.5" fill="#1A2636"/>
+    <circle cx="312" cy="70" r="3" fill="#00E5FF" opacity="0.8"/>
+    <polygon points="310,58 310,76 324,67" fill="#00BCD4" opacity="0.2"/>
+  </svg>
+</div>
+
+<!-- Features -->
+<section class="features">
+  <div class="feature">
+    <span class="feature-icon">🎮</span>
+    <h3>Remote Control</h3>
+    <p>D-pad navigation, media keys, volume, power. Type text directly from your iPhone keyboard.</p>
+  </div>
+  <div class="feature">
+    <span class="feature-icon">👆</span>
+    <h3>Smart Touchpad</h3>
+    <p>Three modes: Pointer, Mouse, Touch. Precision cursor control like a laptop trackpad.</p>
+  </div>
+  <div class="feature">
+    <span class="feature-icon">📸</span>
+    <h3>Screenshot</h3>
+    <p>Capture your TV screen instantly. Preview on iPhone and save to photo library.</p>
+  </div>
+  <div class="feature">
+    <span class="feature-icon">⚡</span>
+    <h3>Shell Terminal</h3>
+    <p>Run ADB commands, list apps, check system info. Full history with timestamps.</p>
+  </div>
+  <div class="feature">
+    <span class="feature-icon">📁</span>
+    <h3>File Transfer</h3>
+    <p>Push files from iPhone to your Android device wirelessly over your local network.</p>
+  </div>
+  <div class="feature">
+    <span class="feature-icon">🔄</span>
+    <h3>Auto Reconnect</h3>
+    <p>Connection lost? AirHQ reconnects automatically when you switch back. Zero friction.</p>
+  </div>
+</section>
+
+<!-- How it works -->
+<section class="how-section">
+  <h2>Setup in 60 Seconds</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-text">
+        <h4>Enable ADB Debugging</h4>
+        <p>On your Android TV: Settings → Developer Options → USB Debugging → ON</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-text">
+        <h4>Enable Network ADB</h4>
+        <p>Same menu: ADB over network → ON. Note the IP address shown.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-text">
+        <h4>Connect from AirHQ</h4>
+        <p>Open AirHQ, enter the IP, tap connect. Approve on your TV. Done.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Page links -->
+<nav class="footer-nav">
+  <a href="privacy.html" class="footer-link">
+    <span class="fl-icon">🔒</span>
+    <div>
+      <div class="fl-text">Privacy Policy</div>
+      <div class="fl-sub">隐私政策</div>
+    </div>
+  </a>
+  <a href="support.html" class="footer-link">
+    <span class="fl-icon">💬</span>
+    <div>
+      <div class="fl-text">Support & FAQ</div>
+      <div class="fl-sub">技术支持</div>
+    </div>
+  </a>
+</nav>
+
+<!-- Footer -->
+<footer>
+  <p>
+    &copy; 2026 AirHQ
+    <a href="privacy.html">Privacy</a>
+    <a href="support.html">Support</a>
+    <a href="mailto:zhvxxh@gmail.com">Contact</a>
+  </p>
+  <p style="margin-top:8px; font-size: 12px; opacity: 0.6;">
+    AirHQ communicates only within your local network. No data is collected or sent to any server.
+  </p>
+</footer>
+
+</body>
+</html>

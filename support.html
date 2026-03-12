@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AirHQ — Support</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #080F1A;
+    --surface: #0D1B2A;
+    --border: #1B2D44;
+    --text: #C8D6E5;
+    --text-dim: #6B7F99;
+    --accent: #00E5FF;
+    --accent-dim: #00BCD4;
+    --white: #EDF2F7;
+    --green: #48BB78;
+    --orange: #ED8936;
+    --red: #FC5C65;
+  }
+
+  body {
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  .grain {
+    position: fixed; inset: 0; pointer-events: none; z-index: 100;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  }
+
+  .glow-top {
+    position: fixed; top: -200px; left: 50%; transform: translateX(-50%);
+    width: 600px; height: 400px; border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(0,229,255,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  header {
+    text-align: center;
+    padding: 60px 20px 40px;
+  }
+
+  .logo {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 28px; font-weight: 500;
+    color: var(--white);
+    letter-spacing: -0.5px;
+  }
+
+  .logo-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 12px rgba(0,229,255,0.5);
+  }
+
+  header h1 {
+    font-size: 22px; font-weight: 500;
+    color: var(--text-dim);
+    margin-top: 12px;
+  }
+
+  .lang-switch {
+    display: flex; justify-content: center; gap: 8px;
+    margin-top: 20px;
+  }
+
+  .lang-switch button {
+    background: var(--surface); border: 1px solid var(--border);
+    color: var(--text-dim); padding: 6px 18px; border-radius: 20px;
+    font-family: inherit; font-size: 13px; cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .lang-switch button.active {
+    background: rgba(0,229,255,0.1); border-color: var(--accent-dim);
+    color: var(--accent);
+  }
+
+  main {
+    max-width: 680px; margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+    margin-bottom: 16px;
+  }
+
+  section h2 {
+    font-size: 16px; font-weight: 600;
+    color: var(--white);
+    margin-bottom: 14px;
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  section h2 .icon { font-size: 18px; }
+
+  section p, section li {
+    font-size: 14.5px;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  ol {
+    padding-left: 20px;
+    counter-reset: steps;
+    list-style: none;
+  }
+
+  ol li {
+    counter-increment: steps;
+    padding-left: 8px;
+    position: relative;
+  }
+
+  ol li::before {
+    content: counter(steps);
+    position: absolute; left: -20px;
+    width: 20px; height: 20px;
+    background: rgba(0,229,255,0.12);
+    color: var(--accent);
+    border-radius: 50%;
+    font-size: 11px; font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    top: 3px;
+  }
+
+  ul { list-style: none; padding-left: 0; }
+  ul li::before { content: "—"; color: var(--accent-dim); margin-right: 8px; }
+
+  .faq-item {
+    border-bottom: 1px solid var(--border);
+    padding: 16px 0;
+  }
+
+  .faq-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .faq-item:first-child { padding-top: 0; }
+
+  .faq-q {
+    font-weight: 600; color: var(--white);
+    font-size: 14.5px;
+    cursor: pointer;
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  .faq-q::before {
+    content: "Q";
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    background: rgba(0,229,255,0.12);
+    color: var(--accent);
+    width: 22px; height: 22px; min-width: 22px;
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .faq-a {
+    margin-top: 8px;
+    padding-left: 30px;
+    font-size: 14px;
+    color: var(--text);
+  }
+
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    background: rgba(0,229,255,0.08);
+    padding: 1px 6px;
+    border-radius: 4px;
+    color: var(--accent);
+  }
+
+  .step-path {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--accent-dim);
+  }
+
+  .contact-box {
+    display: flex; align-items: center; gap: 14px;
+    background: rgba(0,229,255,0.05);
+    border: 1px solid rgba(0,229,255,0.15);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-top: 12px;
+  }
+
+  .contact-box .emoji { font-size: 24px; }
+
+  .contact-box a {
+    color: var(--accent);
+    text-decoration: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+  }
+
+  .status-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .status-green { background: rgba(72,187,120,0.12); color: var(--green); }
+  .status-orange { background: rgba(237,137,54,0.12); color: var(--orange); }
+  .status-red { background: rgba(252,92,101,0.12); color: var(--red); }
+
+  .status-dot { width: 6px; height: 6px; border-radius: 50%; }
+  .status-green .status-dot { background: var(--green); }
+  .status-orange .status-dot { background: var(--orange); }
+  .status-red .status-dot { background: var(--red); }
+
+  footer {
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 13px;
+    color: var(--text-dim);
+    border-top: 1px solid var(--border);
+  }
+
+  footer a { color: var(--accent-dim); text-decoration: none; }
+
+  .hidden { display: none; }
+
+  @media (max-width: 480px) {
+    header { padding: 40px 16px 30px; }
+    section { padding: 20px 18px; }
+    main { padding: 0 16px 60px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+<div class="glow-top"></div>
+
+<header>
+  <div class="logo"><span class="logo-dot"></span> AirHQ</div>
+  <h1 id="page-title">Support</h1>
+  <div class="lang-switch">
+    <button id="btn-en" class="active" onclick="switchLang('en')">English</button>
+    <button id="btn-zh" onclick="switchLang('zh')">中文</button>
+  </div>
+</header>
+
+<main>
+
+  <!-- ENGLISH -->
+  <div id="lang-en">
+
+    <section>
+      <h2><span class="icon">⚡</span> Quick Setup Guide</h2>
+      <ol>
+        <li>On your Android TV, go to <span class="step-path">Settings → About</span> and tap "Build Number" 7 times to enable Developer Options</li>
+        <li>Go to <span class="step-path">Settings → Developer Options</span> and enable <strong>USB Debugging</strong></li>
+        <li>In the same menu, enable <strong>ADB over network</strong> (or "Wireless debugging" / "Network debugging")</li>
+        <li>Note the IP address shown (or find it in <span class="step-path">Settings → Network</span>)</li>
+        <li>Open AirHQ on your iPhone, enter the IP address, and tap the WiFi icon to connect</li>
+        <li>A dialog will appear on your TV — select <strong>"Always allow from this computer"</strong> and confirm</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2><span class="icon">🔍</span> Troubleshooting</h2>
+
+      <div class="faq-item">
+        <div class="faq-q">Cannot connect / Connection timeout</div>
+        <div class="faq-a">
+          <ul>
+            <li>Ensure both devices are on the same WiFi network</li>
+            <li>Verify ADB over network is enabled on your Android device</li>
+            <li>Check that the IP address is correct (no extra dots or spaces)</li>
+            <li>Try restarting ADB: on Android TV, toggle USB Debugging off and on</li>
+            <li>Some routers block device-to-device communication — check "AP Isolation" is disabled</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Connection drops when switching apps</div>
+        <div class="faq-a">
+          <p>iOS suspends apps in the background, which can close the TCP connection. AirHQ will automatically attempt to reconnect when you return. If auto-reconnect fails, tap the WiFi icon to reconnect manually.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Commands timeout / "Read timeout" errors</div>
+        <div class="faq-a">
+          <ul>
+            <li>The connection may have gone stale — disconnect and reconnect</li>
+            <li>Your Android device may be under heavy load — wait and try again</li>
+            <li>Some commands produce very large output — try adding <code>| head -50</code> to limit results</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Remote control buttons not working</div>
+        <div class="faq-a">
+          <p>Remote buttons use <code>input keyevent</code> which requires an active ADB connection. Verify the green indicator is shown. Some custom Android TV launchers may not respond to all key codes.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Screenshot is slow</div>
+        <div class="faq-a">
+          <p>Screenshot speed depends on your Android TV hardware. Budget TV boxes may take 5-15 seconds to capture and transfer a full-resolution screenshot. This is a device limitation, not a network issue.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">"Authorization Required" keeps appearing</div>
+        <div class="faq-a">
+          <ul>
+            <li>Make sure to check "Always allow from this computer" on the TV dialog</li>
+            <li>If the key was rejected, go to Settings → Regenerate ADB Key, then reconnect</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2><span class="icon">📱</span> Supported Devices</h2>
+      <p>AirHQ works with any Android device that supports ADB over TCP/IP:</p>
+      <ul>
+        <li>Android TV boxes (Xiaomi Mi Box, Nvidia Shield, generic boxes)</li>
+        <li>Google Chromecast with Google TV</li>
+        <li>Fire TV Stick (with ADB enabled via developer settings)</li>
+        <li>Android phones and tablets (with wireless debugging enabled)</li>
+        <li>Android 5.0 (API 21) or later required</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2><span class="icon">📧</span> Contact Us</h2>
+      <p>Have a question, found a bug, or want to suggest a feature? We'd love to hear from you.</p>
+      <div class="contact-box">
+        <span class="emoji">✉️</span>
+        <div>
+          <a href="mailto:zhvxxh@gmail.com">zhvxxh@gmail.com</a>
+          <p style="font-size:12px;color:var(--text-dim);margin:4px 0 0">We typically respond within 24 hours</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2><span class="icon">📋</span> App Info</h2>
+      <p>Version: <code>1.0.0</code></p>
+      <p>Protocol: ADB v1.0 over TCP/IP</p>
+      <p>Requires: iOS 16.0 or later</p>
+      <p>Size: ~2 MB</p>
+    </section>
+  </div>
+
+  <!-- CHINESE -->
+  <div id="lang-zh" class="hidden">
+
+    <section>
+      <h2><span class="icon">⚡</span> 快速设置指南</h2>
+      <ol>
+        <li>在安卓电视上，进入 <span class="step-path">设置 → 关于</span>，连续点击"版本号"7 次以开启开发者选项</li>
+        <li>进入 <span class="step-path">设置 → 开发者选项</span>，开启 <strong>USB 调试</strong></li>
+        <li>在同一菜单中，开启 <strong>网络 ADB 调试</strong>（或"无线调试"/"ADB over network"）</li>
+        <li>记下显示的 IP 地址（或在 <span class="step-path">设置 → 网络</span> 中查看）</li>
+        <li>在 iPhone 上打开 AirHQ，输入 IP 地址，点击 WiFi 图标连接</li>
+        <li>电视上会弹出授权对话框 — 勾选 <strong>"始终允许此计算机"</strong> 并确认</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2><span class="icon">🔍</span> 常见问题</h2>
+
+      <div class="faq-item">
+        <div class="faq-q">无法连接 / 连接超时</div>
+        <div class="faq-a">
+          <ul>
+            <li>确认两台设备连接同一 WiFi 网络</li>
+            <li>确认安卓设备已开启网络 ADB 调试</li>
+            <li>检查 IP 地址是否正确（没有多余的点或空格）</li>
+            <li>尝试重启 ADB：在安卓电视上关闭再开启 USB 调试</li>
+            <li>部分路由器会阻止设备间通信 — 检查是否开启了"AP 隔离"</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">切换应用后断线</div>
+        <div class="faq-a">
+          <p>iOS 会在后台挂起应用，可能导致 TCP 连接关闭。AirHQ 会在您返回时自动尝试重连。如果自动重连失败，点击 WiFi 图标手动重新连接即可。</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">命令超时 / "Read timeout" 错误</div>
+        <div class="faq-a">
+          <ul>
+            <li>连接可能已失效 — 断开后重新连接</li>
+            <li>安卓设备可能负载较高 — 等待片刻后重试</li>
+            <li>某些命令输出量很大 — 可以添加 <code>| head -50</code> 限制结果</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">遥控器按键无反应</div>
+        <div class="faq-a">
+          <p>遥控按键使用 <code>input keyevent</code> 命令，需要 ADB 连接处于活跃状态。确认绿色指示灯已亮起。部分定制安卓电视启动器可能不响应所有按键码。</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">截图速度很慢</div>
+        <div class="faq-a">
+          <p>截图速度取决于安卓电视的硬件性能。低端电视盒子可能需要 5-15 秒来截取和传输全分辨率截图。这是设备性能限制，而非网络问题。</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">反复出现"需要授权"提示</div>
+        <div class="faq-a">
+          <ul>
+            <li>确保在电视端的弹窗中勾选"始终允许此计算机"</li>
+            <li>如果密钥被拒绝，请在设置中点击"重新生成 ADB 密钥"，然后重新连接</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2><span class="icon">📱</span> 支持的设备</h2>
+      <p>AirHQ 支持所有开启了 ADB 网络调试的安卓设备：</p>
+      <ul>
+        <li>安卓电视盒子（小米盒子、Nvidia Shield、各类通用盒子）</li>
+        <li>Google Chromecast with Google TV</li>
+        <li>Fire TV Stick（在开发者设置中开启 ADB）</li>
+        <li>安卓手机和平板（开启无线调试）</li>
+        <li>需要 Android 5.0（API 21）或更高版本</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2><span class="icon">📧</span> 联系我们</h2>
+      <p>有问题、发现 Bug 或想提建议？欢迎联系我们。</p>
+      <div class="contact-box">
+        <span class="emoji">✉️</span>
+        <div>
+          <a href="mailto:zhvxxh@gmail.com">zhvxxh@gmail.com</a>
+          <p style="font-size:12px;color:var(--text-dim);margin:4px 0 0">通常在 24 小时内回复</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2><span class="icon">📋</span> 应用信息</h2>
+      <p>版本：<code>1.0.0</code></p>
+      <p>协议：ADB v1.0 over TCP/IP</p>
+      <p>系统要求：iOS 16.0 或更高版本</p>
+      <p>大小：约 2 MB</p>
+    </section>
+  </div>
+
+</main>
+
+<footer>
+  <p>&copy; 2026 AirHQ &nbsp;·&nbsp; <a href="privacy.html">Privacy Policy</a></p>
+</footer>
+
+function switchLang(lang) {
+  document.getElementById('lang-en').classList.toggle('hidden', la
