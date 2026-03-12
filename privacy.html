@@ -7,180 +7,41 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-  :root {
-    --bg: #080F1A;
-    --surface: #0D1B2A;
-    --border: #1B2D44;
-    --text: #C8D6E5;
-    --text-dim: #6B7F99;
-    --accent: #00E5FF;
-    --accent-dim: #00BCD4;
-    --white: #EDF2F7;
-  }
-
-  body {
-    font-family: 'DM Sans', -apple-system, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.7;
-    min-height: 100vh;
-  }
-
-  .grain {
-    position: fixed; inset: 0; pointer-events: none; z-index: 100;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-  }
-
-  .glow-top {
-    position: fixed; top: -200px; left: 50%; transform: translateX(-50%);
-    width: 600px; height: 400px; border-radius: 50%;
-    background: radial-gradient(ellipse, rgba(0,229,255,0.06) 0%, transparent 70%);
-    pointer-events: none;
-  }
-
-  header {
-    text-align: center;
-    padding: 60px 20px 40px;
-    position: relative;
-  }
-
-  .logo {
-    display: inline-flex; align-items: center; gap: 10px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 28px; font-weight: 500;
-    color: var(--white);
-    letter-spacing: -0.5px;
-  }
-
-  .logo-dot {
-    width: 10px; height: 10px; border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 12px rgba(0,229,255,0.5);
-  }
-
-  header h1 {
-    font-size: 22px; font-weight: 500;
-    color: var(--text-dim);
-    margin-top: 12px;
-  }
-
-  .lang-switch {
-    display: flex; justify-content: center; gap: 8px;
-    margin-top: 20px;
-  }
-
-  .lang-switch button {
-    background: var(--surface); border: 1px solid var(--border);
-    color: var(--text-dim); padding: 6px 18px; border-radius: 20px;
-    font-family: inherit; font-size: 13px; cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .lang-switch button.active {
-    background: rgba(0,229,255,0.1); border-color: var(--accent-dim);
-    color: var(--accent);
-  }
-
-  main {
-    max-width: 680px; margin: 0 auto;
-    padding: 0 24px 80px;
-  }
-
-  .updated {
-    text-align: center; font-size: 13px;
-    color: var(--text-dim); margin-bottom: 40px;
-    font-family: 'JetBrains Mono', monospace;
-  }
-
-  section {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 28px 28px;
-    margin-bottom: 16px;
-  }
-
-  section h2 {
-    font-size: 16px; font-weight: 600;
-    color: var(--white);
-    margin-bottom: 12px;
-    display: flex; align-items: center; gap: 8px;
-  }
-
-  section h2 .icon {
-    font-size: 18px; opacity: 0.8;
-  }
-
-  section p, section li {
-    font-size: 14.5px;
-    color: var(--text);
-    margin-bottom: 8px;
-  }
-
-  section ul {
-    list-style: none;
-    padding-left: 0;
-  }
-
-  section li::before {
-    content: "—";
-    color: var(--accent-dim);
-    margin-right: 8px;
-  }
-
-  section li {
-    padding-left: 4px;
-  }
-
-  .highlight {
-    background: rgba(0,229,255,0.08);
-    border-left: 3px solid var(--accent-dim);
-    padding: 14px 18px;
-    border-radius: 0 8px 8px 0;
-    margin: 12px 0;
-    font-size: 14px;
-  }
-
-  code {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
-    background: rgba(0,229,255,0.08);
-    padding: 1px 6px;
-    border-radius: 4px;
-    color: var(--accent);
-  }
-
-  footer {
-    text-align: center;
-    padding: 40px 20px;
-    font-size: 13px;
-    color: var(--text-dim);
-    border-top: 1px solid var(--border);
-  }
-
-  footer a {
-    color: var(--accent-dim);
-    text-decoration: none;
-  }
-
-  .hidden { display: none; }
-
-  @media (max-width: 480px) {
-    header { padding: 40px 16px 30px; }
-    section { padding: 20px 18px; }
-    main { padding: 0 16px 60px; }
-  }
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  :root{--bg:#080F1A;--surface:#0D1B2A;--border:#1B2D44;--text:#C8D6E5;--text-dim:#6B7F99;--accent:#00E5FF;--accent-dim:#00BCD4;--white:#EDF2F7}
+  body{font-family:'DM Sans',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;min-height:100vh}
+  .grain{position:fixed;inset:0;pointer-events:none;z-index:100;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E")}
+  .glow-top{position:fixed;top:-200px;left:50%;transform:translateX(-50%);width:600px;height:400px;border-radius:50%;background:radial-gradient(ellipse,rgba(0,229,255,0.06) 0%,transparent 70%);pointer-events:none}
+  header{text-align:center;padding:60px 20px 40px;position:relative}
+  .logo{display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:500;color:var(--white);letter-spacing:-0.5px}
+  .logo-dot{width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px rgba(0,229,255,0.5)}
+  header h1{font-size:22px;font-weight:500;color:var(--text-dim);margin-top:12px}
+  .lang-switch{display:flex;justify-content:center;gap:8px;margin-top:20px}
+  .lang-switch button{background:var(--surface);border:1px solid var(--border);color:var(--text-dim);padding:6px 18px;border-radius:20px;font-family:inherit;font-size:13px;cursor:pointer;transition:all 0.2s}
+  .lang-switch button.active{background:rgba(0,229,255,0.1);border-color:var(--accent-dim);color:var(--accent)}
+  main{max-width:680px;margin:0 auto;padding:0 24px 80px}
+  .updated{text-align:center;font-size:13px;color:var(--text-dim);margin-bottom:40px;font-family:'JetBrains Mono',monospace}
+  section{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:28px;margin-bottom:16px}
+  section h2{font-size:16px;font-weight:600;color:var(--white);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+  section h2 .icon{font-size:18px;opacity:0.8}
+  section p,section li{font-size:14.5px;color:var(--text);margin-bottom:8px}
+  section ul{list-style:none;padding-left:0}
+  section li::before{content:"—";color:var(--accent-dim);margin-right:8px}
+  section li{padding-left:4px}
+  .highlight{background:rgba(0,229,255,0.08);border-left:3px solid var(--accent-dim);padding:14px 18px;border-radius:0 8px 8px 0;margin:12px 0;font-size:14px}
+  code{font-family:'JetBrains Mono',monospace;font-size:13px;background:rgba(0,229,255,0.08);padding:1px 6px;border-radius:4px;color:var(--accent)}
+  footer{text-align:center;padding:40px 20px;font-size:13px;color:var(--text-dim);border-top:1px solid var(--border)}
+  footer a{color:var(--accent-dim);text-decoration:none}
+  .hidden{display:none}
+  @media(max-width:480px){header{padding:40px 16px 30px}section{padding:20px 18px}main{padding:0 16px 60px}}
 </style>
 </head>
 <body>
-
 <div class="grain"></div>
 <div class="glow-top"></div>
 
 <header>
-  <div class="logo"><span class="logo-dot"></span> AirHQ</div>
+  <a href="index.html" style="text-decoration:none"><div class="logo"><span class="logo-dot"></span> AirHQ</div></a>
   <h1 id="page-title">Privacy Policy</h1>
   <div class="lang-switch">
     <button id="btn-en" class="active" onclick="switchLang('en')">English</button>
@@ -196,15 +57,12 @@
   <div id="lang-en">
     <section>
       <h2><span class="icon">🔒</span> Overview</h2>
-      <p>AirHQ is a local-network remote control app for Android TV devices. We are committed to protecting your privacy. This policy explains what data AirHQ accesses and how it is handled.</p>
-      <div class="highlight">
-        <strong>In short:</strong> AirHQ does not collect, store, or transmit any personal data to any server. All communication happens directly between your iPhone and your Android device on your local network.
-      </div>
+      <p>AirHQ is a local-network remote control app for Android TV devices. We are committed to protecting your privacy.</p>
+      <div class="highlight"><strong>In short:</strong> AirHQ does not collect, store, or transmit any personal data to any server. All communication happens directly between your iPhone and your Android device on your local network.</div>
     </section>
-
     <section>
       <h2><span class="icon">📡</span> Network Communication</h2>
-      <p>AirHQ communicates exclusively over your local WiFi network using the ADB (Android Debug Bridge) protocol on port <code>5555</code>.</p>
+      <p>AirHQ communicates exclusively over your local WiFi network using the ADB protocol on port <code>5555</code>.</p>
       <ul>
         <li>All data stays within your local network</li>
         <li>No data is sent to any external server, cloud service, or third party</li>
@@ -212,18 +70,16 @@
         <li>Connection is made directly to the IP address you provide</li>
       </ul>
     </section>
-
     <section>
       <h2><span class="icon">💾</span> Data Stored on Your Device</h2>
       <p>AirHQ stores minimal data locally on your iPhone only:</p>
       <ul>
-        <li><strong>Connection history</strong> — IP addresses and port numbers you have connected to, for quick reconnection</li>
-        <li><strong>RSA key pair</strong> — Generated locally for ADB authentication, stored in your device's Keychain</li>
-        <li><strong>Screenshots</strong> — Temporarily held in memory; only saved to your Photos library when you explicitly choose to</li>
+        <li><strong>Connection history</strong> — IP addresses and port numbers for quick reconnection</li>
+        <li><strong>RSA key pair</strong> — Generated locally for ADB authentication, stored in Keychain</li>
+        <li><strong>Screenshots</strong> — Temporarily in memory; saved to Photos only when you choose to</li>
       </ul>
       <p>No data is synced to iCloud or any external service.</p>
     </section>
-
     <section>
       <h2><span class="icon">🚫</span> What We Do NOT Collect</h2>
       <ul>
@@ -235,31 +91,26 @@
         <li>No third-party SDKs or analytics frameworks</li>
       </ul>
     </section>
-
     <section>
-      <h2><span class="icon">📸</span> Photos & Media</h2>
-      <p>AirHQ requests access to your photo library only when you choose to save a screenshot. This permission is optional and the app functions fully without it.</p>
+      <h2><span class="icon">📸</span> Photos &amp; Media</h2>
+      <p>AirHQ requests photo library access only when you save a screenshot. This permission is optional.</p>
     </section>
-
     <section>
       <h2><span class="icon">🌐</span> Local Network Access</h2>
-      <p>AirHQ requests local network permission to discover and connect to Android devices on your WiFi network. This is required for the app's core functionality and is used solely for ADB communication.</p>
+      <p>AirHQ requests local network permission to connect to Android devices on your WiFi. This is required for core functionality and used solely for ADB communication.</p>
     </section>
-
     <section>
       <h2><span class="icon">👶</span> Children's Privacy</h2>
-      <p>AirHQ does not collect any personal data from any users, including children under 13. The app contains no age-restricted content.</p>
+      <p>AirHQ does not collect personal data from any users, including children under 13.</p>
     </section>
-
     <section>
       <h2><span class="icon">📝</span> Changes to This Policy</h2>
-      <p>We may update this privacy policy from time to time. Any changes will be reflected on this page with an updated date.</p>
+      <p>We may update this policy from time to time. Changes will be reflected on this page with an updated date.</p>
     </section>
-
     <section>
       <h2><span class="icon">📧</span> Contact</h2>
-      <p>If you have any questions about this privacy policy, please contact us at:</p>
-      <p><code>zhvxxh@gmail.com</code></p>
+      <p>Questions about this privacy policy? Contact us at:</p>
+      <p><code>zhvxxh&#64;gmail.com</code></p>
     </section>
   </div>
 
@@ -267,34 +118,29 @@
   <div id="lang-zh" class="hidden">
     <section>
       <h2><span class="icon">🔒</span> 概述</h2>
-      <p>AirHQ 是一款通过局域网连接安卓电视设备的遥控器应用。我们承诺保护您的隐私。本政策说明 AirHQ 如何访问和处理数据。</p>
-      <div class="highlight">
-        <strong>简而言之：</strong>AirHQ 不收集、不存储、不向任何服务器传输任何个人数据。所有通信仅在您的 iPhone 和安卓设备之间通过局域网直接进行。
-      </div>
+      <p>AirHQ 是一款通过局域网连接安卓电视设备的遥控器应用。我们承诺保护您的隐私。</p>
+      <div class="highlight"><strong>简而言之：</strong>AirHQ 不收集、不存储、不向任何服务器传输任何个人数据。所有通信仅在您的 iPhone 和安卓设备之间通过局域网直接进行。</div>
     </section>
-
     <section>
       <h2><span class="icon">📡</span> 网络通信</h2>
-      <p>AirHQ 仅通过您的本地 WiFi 网络使用 ADB（Android Debug Bridge）协议在端口 <code>5555</code> 上进行通信。</p>
+      <p>AirHQ 仅通过本地 WiFi 网络使用 ADB 协议在端口 <code>5555</code> 上通信。</p>
       <ul>
-        <li>所有数据均保留在您的局域网内</li>
+        <li>所有数据均保留在局域网内</li>
         <li>不向任何外部服务器、云服务或第三方发送数据</li>
         <li>应用正常运行不需要互联网连接</li>
         <li>仅连接到您提供的 IP 地址</li>
       </ul>
     </section>
-
     <section>
       <h2><span class="icon">💾</span> 设备上存储的数据</h2>
       <p>AirHQ 仅在您的 iPhone 本地存储少量数据：</p>
       <ul>
-        <li><strong>连接记录</strong> — 您连接过的 IP 地址和端口号，用于快速重连</li>
-        <li><strong>RSA 密钥对</strong> — 在本地生成用于 ADB 认证，存储在设备钥匙串中</li>
+        <li><strong>连接记录</strong> — IP 地址和端口号，用于快速重连</li>
+        <li><strong>RSA 密钥对</strong> — 本地生成用于 ADB 认证，存储在钥匙串中</li>
         <li><strong>截图</strong> — 临时保存在内存中；仅在您选择保存时才写入相册</li>
       </ul>
       <p>不会同步到 iCloud 或任何外部服务。</p>
     </section>
-
     <section>
       <h2><span class="icon">🚫</span> 我们不收集的信息</h2>
       <ul>
@@ -306,41 +152,44 @@
         <li>不包含任何第三方 SDK 或分析框架</li>
       </ul>
     </section>
-
     <section>
       <h2><span class="icon">📸</span> 照片与媒体</h2>
-      <p>AirHQ 仅在您选择保存截图时才请求相册访问权限。此权限为可选，应用在没有该权限的情况下也能完整运行。</p>
+      <p>AirHQ 仅在您选择保存截图时才请求相册权限。此权限为可选。</p>
     </section>
-
     <section>
       <h2><span class="icon">🌐</span> 本地网络访问</h2>
-      <p>AirHQ 请求本地网络权限以发现和连接 WiFi 网络上的安卓设备。这是应用核心功能所必需的，仅用于 ADB 通信。</p>
+      <p>AirHQ 请求本地网络权限以连接 WiFi 上的安卓设备。这是核心功能所必需的，仅用于 ADB 通信。</p>
     </section>
-
     <section>
       <h2><span class="icon">👶</span> 儿童隐私</h2>
-      <p>AirHQ 不收集任何用户的个人数据，包括 13 岁以下的儿童。应用不包含任何年龄限制内容。</p>
+      <p>AirHQ 不收集任何用户的个人数据，包括 13 岁以下的儿童。</p>
     </section>
-
     <section>
       <h2><span class="icon">📝</span> 政策变更</h2>
       <p>我们可能会不时更新本隐私政策。任何变更将在本页面上反映并更新日期。</p>
     </section>
-
     <section>
       <h2><span class="icon">📧</span> 联系方式</h2>
-      <p>如果您对本隐私政策有任何疑问，请通过以下方式联系我们：</p>
-      <p><code>zhvxxh@gmail.com</code></p>
+      <p>如果您对本隐私政策有任何疑问，请联系我们：</p>
+      <p><code>zhvxxh&#64;gmail.com</code></p>
     </section>
   </div>
 </main>
 
 <footer>
-  <p>&copy; 2026 AirHQ &nbsp;·&nbsp; <a href="support.html">Support</a></p>
+  <p>&copy; 2026 AirHQ &nbsp;·&nbsp; <a href="index.html">Home</a> &nbsp;·&nbsp; <a href="support.html">Support</a></p>
 </footer>
 
+<script>
 function switchLang(lang) {
   document.getElementById('lang-en').classList.toggle('hidden', lang !== 'en');
   document.getElementById('lang-zh').classList.toggle('hidden', lang !== 'zh');
   document.getElementById('date-en').classList.toggle('hidden', lang !== 'en');
-  document.getEleme
+  document.getElementById('date-zh').classList.toggle('hidden', lang !== 'zh');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
+  document.getElementById('page-title').textContent = lang === 'en' ? 'Privacy Policy' : '隐私政策';
+}
+</script>
+</body>
+</html>
