@@ -13,7 +13,7 @@
   .grain{position:fixed;inset:0;pointer-events:none;z-index:100;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E")}
   .glow-top{position:fixed;top:-200px;left:50%;transform:translateX(-50%);width:600px;height:400px;border-radius:50%;background:radial-gradient(ellipse,rgba(0,229,255,0.06) 0%,transparent 70%);pointer-events:none}
   header{text-align:center;padding:60px 20px 40px}
-  .logo{display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:500;color:var(--white);letter-spacing:-0.5px}
+  .logo{display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:500;color:var(--white);letter-spacing:-0.5px;text-decoration:none}
   .logo-dot{width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px rgba(0,229,255,0.5)}
   header h1{font-size:22px;font-weight:500;color:var(--text-dim);margin-top:12px}
   .lang-switch{display:flex;justify-content:center;gap:8px;margin-top:20px}
@@ -43,24 +43,20 @@
   footer{text-align:center;padding:40px 20px;font-size:13px;color:var(--text-dim);border-top:1px solid var(--border)}
   footer a{color:var(--accent-dim);text-decoration:none}
   .hidden{display:none}
-  @media(max-width:480px){header{padding:40px 16px 30px}section{padding:20px 18px}main{padding:0 16px 60px}}
 </style>
 </head>
 <body>
 <div class="grain"></div>
 <div class="glow-top"></div>
-
 <header>
-  <a href="index.html" style="text-decoration:none"><div class="logo"><span class="logo-dot"></span> AirHQ</div></a>
+  <a href="index.html" class="logo"><span class="logo-dot"></span> AirHQ</a>
   <h1 id="page-title">Support</h1>
   <div class="lang-switch">
     <button id="btn-en" class="active" onclick="switchLang('en')">English</button>
     <button id="btn-zh" onclick="switchLang('zh')">中文</button>
   </div>
 </header>
-
 <main>
-  <!-- ENGLISH -->
   <div id="lang-en">
     <section>
       <h2><span class="icon">⚡</span> Quick Setup Guide</h2>
@@ -73,78 +69,29 @@
         <li>A dialog will appear on your TV — select <strong>"Always allow"</strong> and confirm</li>
       </ol>
     </section>
-
     <section>
       <h2><span class="icon">🔍</span> Troubleshooting</h2>
-      <div class="faq-item">
-        <div class="faq-q">Cannot connect / Connection timeout</div>
-        <div class="faq-a"><ul>
-          <li>Ensure both devices are on the same WiFi network</li>
-          <li>Verify ADB over network is enabled on your Android device</li>
-          <li>Check that the IP address is correct</li>
-          <li>Try toggling USB Debugging off and on</li>
-          <li>Check "AP Isolation" is disabled on your router</li>
-        </ul></div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Connection drops when switching apps</div>
-        <div class="faq-a"><p>iOS suspends background apps, which can close TCP connections. AirHQ auto-reconnects when you return. If it fails, tap the WiFi icon to reconnect manually.</p></div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Commands timeout / "Read timeout" errors</div>
-        <div class="faq-a"><ul>
-          <li>Disconnect and reconnect</li>
-          <li>Device may be under heavy load — wait and retry</li>
-          <li>Add <code>| head -50</code> to limit large output</li>
-        </ul></div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Remote buttons not working</div>
-        <div class="faq-a"><p>Verify the green indicator is shown. Some custom launchers may not respond to all key codes.</p></div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Screenshot is slow</div>
-        <div class="faq-a"><p>Speed depends on your Android TV hardware. Budget boxes may take 5-15 seconds. This is a device limitation.</p></div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">"Authorization Required" keeps appearing</div>
-        <div class="faq-a"><ul>
-          <li>Check "Always allow from this computer" on the TV dialog</li>
-          <li>Try Settings → Regenerate ADB Key, then reconnect</li>
-        </ul></div>
-      </div>
+      <div class="faq-item"><div class="faq-q">Cannot connect / Connection timeout</div><div class="faq-a"><ul><li>Ensure both devices are on the same WiFi network</li><li>Verify ADB over network is enabled</li><li>Check that the IP address is correct</li><li>Try toggling USB Debugging off and on</li><li>Check "AP Isolation" is disabled on your router</li></ul></div></div>
+      <div class="faq-item"><div class="faq-q">Connection drops when switching apps</div><div class="faq-a"><p>iOS suspends background apps. AirHQ auto-reconnects when you return. If it fails, tap the WiFi icon to reconnect.</p></div></div>
+      <div class="faq-item"><div class="faq-q">Commands timeout / "Read timeout"</div><div class="faq-a"><ul><li>Disconnect and reconnect</li><li>Device may be under heavy load — wait and retry</li><li>Add <code>| head -50</code> to limit large output</li></ul></div></div>
+      <div class="faq-item"><div class="faq-q">Remote buttons not working</div><div class="faq-a"><p>Verify the green indicator is shown. Some custom launchers may not respond to all key codes.</p></div></div>
+      <div class="faq-item"><div class="faq-q">Screenshot is slow</div><div class="faq-a"><p>Speed depends on your Android TV hardware. Budget boxes may take 5-15 seconds.</p></div></div>
+      <div class="faq-item"><div class="faq-q">"Authorization Required" keeps appearing</div><div class="faq-a"><ul><li>Check "Always allow from this computer" on TV</li><li>Try Settings → Regenerate ADB Key, then reconnect</li></ul></div></div>
     </section>
-
     <section>
       <h2><span class="icon">📱</span> Supported Devices</h2>
-      <ul>
-        <li>Android TV boxes (Xiaomi Mi Box, Nvidia Shield, generic boxes)</li>
-        <li>Google Chromecast with Google TV</li>
-        <li>Fire TV Stick (with ADB enabled)</li>
-        <li>Android phones and tablets (wireless debugging)</li>
-        <li>Android 5.0 (API 21) or later</li>
-      </ul>
+      <ul><li>Android TV boxes (Xiaomi Mi Box, Nvidia Shield, generic boxes)</li><li>Google Chromecast with Google TV</li><li>Fire TV Stick (with ADB enabled)</li><li>Android phones and tablets (wireless debugging)</li><li>Android 5.0 (API 21) or later</li></ul>
     </section>
-
     <section>
       <h2><span class="icon">📧</span> Contact Us</h2>
-      <p>Questions, bugs, or feature requests? We'd love to hear from you.</p>
-      <div class="contact-box">
-        <span class="emoji">✉️</span>
-        <div>
-          <a href="mailto:zhvxxh&#64;gmail.com">zhvxxh&#64;gmail.com</a>
-          <p style="font-size:12px;color:var(--text-dim);margin:4px 0 0">We typically respond within 24 hours</p>
-        </div>
-      </div>
+      <p>Questions, bugs, or feature requests?</p>
+      <div class="contact-box"><span class="emoji">✉️</span><div><a id="email-en">loading...</a><p style="font-size:12px;color:var(--text-dim);margin:4px 0 0">We typically respond within 24 hours</p></div></div>
     </section>
-
     <section>
       <h2><span class="icon">📋</span> App Info</h2>
       <p>Version: <code>1.0.0</code> &nbsp; Protocol: ADB v1.0 over TCP/IP &nbsp; Requires: iOS 16.0+</p>
     </section>
   </div>
-
-  <!-- CHINESE -->
   <div id="lang-zh" class="hidden">
     <section>
       <h2><span class="icon">⚡</span> 快速设置指南</h2>
@@ -152,87 +99,38 @@
         <li>在安卓电视上，进入 <span class="step-path">设置 → 关于</span>，连续点击"版本号"7 次开启开发者选项</li>
         <li>进入 <span class="step-path">设置 → 开发者选项</span>，开启 <strong>USB 调试</strong></li>
         <li>在同一菜单中，开启 <strong>网络 ADB 调试</strong></li>
-        <li>记下显示的 IP 地址（或在 <span class="step-path">设置 → 网络</span> 中查看）</li>
+        <li>记下 IP 地址（或在 <span class="step-path">设置 → 网络</span> 中查看）</li>
         <li>在 iPhone 上打开 AirHQ，输入 IP 地址，点击 WiFi 图标连接</li>
-        <li>电视上会弹出授权对话框 — 勾选 <strong>"始终允许"</strong> 并确认</li>
+        <li>电视上弹出授权对话框 — 勾选 <strong>"始终允许"</strong> 并确认</li>
       </ol>
     </section>
-
     <section>
       <h2><span class="icon">🔍</span> 常见问题</h2>
-      <div class="faq-item">
-        <div class="faq-q">无法连接 / 连接超时</div>
-        <div class="faq-a"><ul>
-          <li>确认两台设备连接同一 WiFi 网络</li>
-          <li>确认安卓设备已开启网络 ADB 调试</li>
-          <li>检查 IP 地址是否正确</li>
-          <li>尝试关闭再开启 USB 调试</li>
-          <li>检查路由器是否开启了"AP 隔离"</li>
-        </ul></div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">切换应用后断线</div>
-        <div class="faq-a"><p>iOS 会在后台挂起应用，可能导致连接关闭。AirHQ 会在返回时自动重连。如果失败，点击 WiFi 图标手动重连。</p></div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">命令超时 / "Read timeout" 错误</div>
-        <div class="faq-a"><ul>
-          <li>断开后重新连接</li>
-          <li>设备可能负载较高 — 等待后重试</li>
-          <li>添加 <code>| head -50</code> 限制输出量</li>
-        </ul></div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">遥控器按键无反应</div>
-        <div class="faq-a"><p>确认绿色指示灯已亮起。部分定制启动器可能不响应所有按键码。</p></div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">截图速度很慢</div>
-        <div class="faq-a"><p>截图速度取决于安卓电视硬件。低端盒子可能需要 5-15 秒。这是设备性能限制。</p></div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">反复出现"需要授权"</div>
-        <div class="faq-a"><ul>
-          <li>在电视端勾选"始终允许此计算机"</li>
-          <li>在设置中"重新生成 ADB 密钥"后重连</li>
-        </ul></div>
-      </div>
+      <div class="faq-item"><div class="faq-q">无法连接 / 连接超时</div><div class="faq-a"><ul><li>确认两台设备连接同一 WiFi</li><li>确认已开启网络 ADB 调试</li><li>检查 IP 地址是否正确</li><li>尝试关闭再开启 USB 调试</li><li>检查路由器是否开启了"AP 隔离"</li></ul></div></div>
+      <div class="faq-item"><div class="faq-q">切换应用后断线</div><div class="faq-a"><p>iOS 会在后台挂起应用。AirHQ 返回时自动重连。失败则点击 WiFi 图标手动重连。</p></div></div>
+      <div class="faq-item"><div class="faq-q">命令超时 / "Read timeout"</div><div class="faq-a"><ul><li>断开后重新连接</li><li>设备负载较高时等待后重试</li><li>添加 <code>| head -50</code> 限制输出</li></ul></div></div>
+      <div class="faq-item"><div class="faq-q">遥控器按键无反应</div><div class="faq-a"><p>确认绿色指示灯亮起。部分定制启动器可能不响应所有按键。</p></div></div>
+      <div class="faq-item"><div class="faq-q">截图速度很慢</div><div class="faq-a"><p>取决于安卓电视硬件。低端盒子可能需要 5-15 秒。</p></div></div>
+      <div class="faq-item"><div class="faq-q">反复出现"需要授权"</div><div class="faq-a"><ul><li>在电视端勾选"始终允许此计算机"</li><li>设置中"重新生成 ADB 密钥"后重连</li></ul></div></div>
     </section>
-
     <section>
       <h2><span class="icon">📱</span> 支持的设备</h2>
-      <ul>
-        <li>安卓电视盒子（小米盒子、Nvidia Shield、各类通用盒子）</li>
-        <li>Google Chromecast with Google TV</li>
-        <li>Fire TV Stick（开启 ADB）</li>
-        <li>安卓手机和平板（开启无线调试）</li>
-        <li>需要 Android 5.0 或更高版本</li>
-      </ul>
+      <ul><li>安卓电视盒子（小米盒子、Nvidia Shield、各类通用盒子）</li><li>Google Chromecast with Google TV</li><li>Fire TV Stick（开启 ADB）</li><li>安卓手机和平板（开启无线调试）</li><li>需要 Android 5.0 或更高版本</li></ul>
     </section>
-
     <section>
       <h2><span class="icon">📧</span> 联系我们</h2>
-      <p>有问题、发现 Bug 或想提建议？欢迎联系。</p>
-      <div class="contact-box">
-        <span class="emoji">✉️</span>
-        <div>
-          <a href="mailto:zhvxxh&#64;gmail.com">zhvxxh&#64;gmail.com</a>
-          <p style="font-size:12px;color:var(--text-dim);margin:4px 0 0">通常在 24 小时内回复</p>
-        </div>
-      </div>
+      <p>有问题、发现 Bug 或想提建议？</p>
+      <div class="contact-box"><span class="emoji">✉️</span><div><a id="email-zh">loading...</a><p style="font-size:12px;color:var(--text-dim);margin:4px 0 0">通常在 24 小时内回复</p></div></div>
     </section>
-
     <section>
       <h2><span class="icon">📋</span> 应用信息</h2>
       <p>版本：<code>1.0.0</code> &nbsp; 协议：ADB v1.0 over TCP/IP &nbsp; 系统要求：iOS 16.0+</p>
     </section>
   </div>
 </main>
-
 <footer>
   <p>&copy; 2026 AirHQ &nbsp;·&nbsp; <a href="index.html">Home</a> &nbsp;·&nbsp; <a href="privacy.html">Privacy Policy</a></p>
 </footer>
-
 <script>
 function switchLang(lang) {
   document.getElementById('lang-en').classList.toggle('hidden', lang !== 'en');
@@ -241,6 +139,11 @@ function switchLang(lang) {
   document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
   document.getElementById('page-title').textContent = lang === 'en' ? 'Support' : '技术支持';
 }
+var e = ['zhvxxh','gmail.com'].join(String.fromCharCode(64));
+document.getElementById('email-en').href = 'mai' + 'lto:' + e;
+document.getElementById('email-en').textContent = e;
+document.getElementById('email-zh').href = 'mai' + 'lto:' + e;
+document.getElementById('email-zh').textContent = e;
 </script>
 </body>
 </html>

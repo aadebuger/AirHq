@@ -12,8 +12,8 @@
   body{font-family:'DM Sans',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;min-height:100vh}
   .grain{position:fixed;inset:0;pointer-events:none;z-index:100;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E")}
   .glow-top{position:fixed;top:-200px;left:50%;transform:translateX(-50%);width:600px;height:400px;border-radius:50%;background:radial-gradient(ellipse,rgba(0,229,255,0.06) 0%,transparent 70%);pointer-events:none}
-  header{text-align:center;padding:60px 20px 40px;position:relative}
-  .logo{display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:500;color:var(--white);letter-spacing:-0.5px}
+  header{text-align:center;padding:60px 20px 40px}
+  .logo{display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:500;color:var(--white);letter-spacing:-0.5px;text-decoration:none}
   .logo-dot{width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px rgba(0,229,255,0.5)}
   header h1{font-size:22px;font-weight:500;color:var(--text-dim);margin-top:12px}
   .lang-switch{display:flex;justify-content:center;gap:8px;margin-top:20px}
@@ -27,159 +27,51 @@
   section p,section li{font-size:14.5px;color:var(--text);margin-bottom:8px}
   section ul{list-style:none;padding-left:0}
   section li::before{content:"—";color:var(--accent-dim);margin-right:8px}
-  section li{padding-left:4px}
   .highlight{background:rgba(0,229,255,0.08);border-left:3px solid var(--accent-dim);padding:14px 18px;border-radius:0 8px 8px 0;margin:12px 0;font-size:14px}
   code{font-family:'JetBrains Mono',monospace;font-size:13px;background:rgba(0,229,255,0.08);padding:1px 6px;border-radius:4px;color:var(--accent)}
   footer{text-align:center;padding:40px 20px;font-size:13px;color:var(--text-dim);border-top:1px solid var(--border)}
   footer a{color:var(--accent-dim);text-decoration:none}
   .hidden{display:none}
-  @media(max-width:480px){header{padding:40px 16px 30px}section{padding:20px 18px}main{padding:0 16px 60px}}
 </style>
 </head>
 <body>
 <div class="grain"></div>
 <div class="glow-top"></div>
-
 <header>
-  <a href="index.html" style="text-decoration:none"><div class="logo"><span class="logo-dot"></span> AirHQ</div></a>
+  <a href="index.html" class="logo"><span class="logo-dot"></span> AirHQ</a>
   <h1 id="page-title">Privacy Policy</h1>
   <div class="lang-switch">
     <button id="btn-en" class="active" onclick="switchLang('en')">English</button>
     <button id="btn-zh" onclick="switchLang('zh')">中文</button>
   </div>
 </header>
-
 <main>
   <p class="updated" id="date-en">Last updated: March 2026</p>
   <p class="updated hidden" id="date-zh">最后更新：2026 年 3 月</p>
-
-  <!-- ENGLISH -->
   <div id="lang-en">
-    <section>
-      <h2><span class="icon">🔒</span> Overview</h2>
-      <p>AirHQ is a local-network remote control app for Android TV devices. We are committed to protecting your privacy.</p>
-      <div class="highlight"><strong>In short:</strong> AirHQ does not collect, store, or transmit any personal data to any server. All communication happens directly between your iPhone and your Android device on your local network.</div>
-    </section>
-    <section>
-      <h2><span class="icon">📡</span> Network Communication</h2>
-      <p>AirHQ communicates exclusively over your local WiFi network using the ADB protocol on port <code>5555</code>.</p>
-      <ul>
-        <li>All data stays within your local network</li>
-        <li>No data is sent to any external server, cloud service, or third party</li>
-        <li>No internet connection is required for the app to function</li>
-        <li>Connection is made directly to the IP address you provide</li>
-      </ul>
-    </section>
-    <section>
-      <h2><span class="icon">💾</span> Data Stored on Your Device</h2>
-      <p>AirHQ stores minimal data locally on your iPhone only:</p>
-      <ul>
-        <li><strong>Connection history</strong> — IP addresses and port numbers for quick reconnection</li>
-        <li><strong>RSA key pair</strong> — Generated locally for ADB authentication, stored in Keychain</li>
-        <li><strong>Screenshots</strong> — Temporarily in memory; saved to Photos only when you choose to</li>
-      </ul>
-      <p>No data is synced to iCloud or any external service.</p>
-    </section>
-    <section>
-      <h2><span class="icon">🚫</span> What We Do NOT Collect</h2>
-      <ul>
-        <li>No personal information (name, email, phone number)</li>
-        <li>No usage analytics or tracking</li>
-        <li>No crash reports sent externally</li>
-        <li>No advertising identifiers</li>
-        <li>No location data</li>
-        <li>No third-party SDKs or analytics frameworks</li>
-      </ul>
-    </section>
-    <section>
-      <h2><span class="icon">📸</span> Photos &amp; Media</h2>
-      <p>AirHQ requests photo library access only when you save a screenshot. This permission is optional.</p>
-    </section>
-    <section>
-      <h2><span class="icon">🌐</span> Local Network Access</h2>
-      <p>AirHQ requests local network permission to connect to Android devices on your WiFi. This is required for core functionality and used solely for ADB communication.</p>
-    </section>
-    <section>
-      <h2><span class="icon">👶</span> Children's Privacy</h2>
-      <p>AirHQ does not collect personal data from any users, including children under 13.</p>
-    </section>
-    <section>
-      <h2><span class="icon">📝</span> Changes to This Policy</h2>
-      <p>We may update this policy from time to time. Changes will be reflected on this page with an updated date.</p>
-    </section>
-    <section>
-      <h2><span class="icon">📧</span> Contact</h2>
-      <p>Questions about this privacy policy? Contact us at:</p>
-      <p><code>zhvxxh&#64;gmail.com</code></p>
-    </section>
+    <section><h2><span class="icon">🔒</span> Overview</h2><p>AirHQ is a local-network remote control app for Android TV devices.</p><div class="highlight"><strong>In short:</strong> AirHQ does not collect, store, or transmit any personal data to any server. All communication happens directly between your iPhone and your Android device on your local network.</div></section>
+    <section><h2><span class="icon">📡</span> Network Communication</h2><p>AirHQ communicates exclusively over your local WiFi network using the ADB protocol on port <code>5555</code>.</p><ul><li>All data stays within your local network</li><li>No data is sent to any external server or third party</li><li>No internet connection is required</li><li>Connection is made directly to the IP address you provide</li></ul></section>
+    <section><h2><span class="icon">💾</span> Data Stored on Device</h2><p>Minimal data stored locally on your iPhone only:</p><ul><li><strong>Connection history</strong> — IP addresses and ports for quick reconnection</li><li><strong>RSA key pair</strong> — Generated locally for ADB authentication, stored in Keychain</li><li><strong>Screenshots</strong> — Temporarily in memory; saved to Photos only when you choose</li></ul><p>No data is synced to iCloud or any external service.</p></section>
+    <section><h2><span class="icon">🚫</span> What We Do NOT Collect</h2><ul><li>No personal information (name, email, phone number)</li><li>No usage analytics or tracking</li><li>No crash reports sent externally</li><li>No advertising identifiers</li><li>No location data</li><li>No third-party SDKs or analytics frameworks</li></ul></section>
+    <section><h2><span class="icon">📸</span> Photos &amp; Media</h2><p>Photo library access is requested only when you save a screenshot. This permission is optional.</p></section>
+    <section><h2><span class="icon">🌐</span> Local Network</h2><p>Local network permission is required for ADB communication with Android devices on your WiFi.</p></section>
+    <section><h2><span class="icon">👶</span> Children's Privacy</h2><p>AirHQ does not collect personal data from any users, including children under 13.</p></section>
+    <section><h2><span class="icon">📝</span> Changes</h2><p>We may update this policy from time to time. Changes will be reflected on this page.</p></section>
+    <section><h2><span class="icon">📧</span> Contact</h2><p>Questions about this privacy policy?</p><p><code id="email-en">loading...</code></p></section>
   </div>
-
-  <!-- CHINESE -->
   <div id="lang-zh" class="hidden">
-    <section>
-      <h2><span class="icon">🔒</span> 概述</h2>
-      <p>AirHQ 是一款通过局域网连接安卓电视设备的遥控器应用。我们承诺保护您的隐私。</p>
-      <div class="highlight"><strong>简而言之：</strong>AirHQ 不收集、不存储、不向任何服务器传输任何个人数据。所有通信仅在您的 iPhone 和安卓设备之间通过局域网直接进行。</div>
-    </section>
-    <section>
-      <h2><span class="icon">📡</span> 网络通信</h2>
-      <p>AirHQ 仅通过本地 WiFi 网络使用 ADB 协议在端口 <code>5555</code> 上通信。</p>
-      <ul>
-        <li>所有数据均保留在局域网内</li>
-        <li>不向任何外部服务器、云服务或第三方发送数据</li>
-        <li>应用正常运行不需要互联网连接</li>
-        <li>仅连接到您提供的 IP 地址</li>
-      </ul>
-    </section>
-    <section>
-      <h2><span class="icon">💾</span> 设备上存储的数据</h2>
-      <p>AirHQ 仅在您的 iPhone 本地存储少量数据：</p>
-      <ul>
-        <li><strong>连接记录</strong> — IP 地址和端口号，用于快速重连</li>
-        <li><strong>RSA 密钥对</strong> — 本地生成用于 ADB 认证，存储在钥匙串中</li>
-        <li><strong>截图</strong> — 临时保存在内存中；仅在您选择保存时才写入相册</li>
-      </ul>
-      <p>不会同步到 iCloud 或任何外部服务。</p>
-    </section>
-    <section>
-      <h2><span class="icon">🚫</span> 我们不收集的信息</h2>
-      <ul>
-        <li>不收集个人信息（姓名、邮箱、电话号码）</li>
-        <li>不进行使用分析或跟踪</li>
-        <li>不向外部发送崩溃报告</li>
-        <li>不使用广告标识符</li>
-        <li>不收集位置数据</li>
-        <li>不包含任何第三方 SDK 或分析框架</li>
-      </ul>
-    </section>
-    <section>
-      <h2><span class="icon">📸</span> 照片与媒体</h2>
-      <p>AirHQ 仅在您选择保存截图时才请求相册权限。此权限为可选。</p>
-    </section>
-    <section>
-      <h2><span class="icon">🌐</span> 本地网络访问</h2>
-      <p>AirHQ 请求本地网络权限以连接 WiFi 上的安卓设备。这是核心功能所必需的，仅用于 ADB 通信。</p>
-    </section>
-    <section>
-      <h2><span class="icon">👶</span> 儿童隐私</h2>
-      <p>AirHQ 不收集任何用户的个人数据，包括 13 岁以下的儿童。</p>
-    </section>
-    <section>
-      <h2><span class="icon">📝</span> 政策变更</h2>
-      <p>我们可能会不时更新本隐私政策。任何变更将在本页面上反映并更新日期。</p>
-    </section>
-    <section>
-      <h2><span class="icon">📧</span> 联系方式</h2>
-      <p>如果您对本隐私政策有任何疑问，请联系我们：</p>
-      <p><code>zhvxxh&#64;gmail.com</code></p>
-    </section>
+    <section><h2><span class="icon">🔒</span> 概述</h2><p>AirHQ 是一款通过局域网连接安卓电视设备的遥控器应用。</p><div class="highlight"><strong>简而言之：</strong>AirHQ 不收集、不存储、不向任何服务器传输任何个人数据。所有通信仅在您的 iPhone 和安卓设备之间通过局域网直接进行。</div></section>
+    <section><h2><span class="icon">📡</span> 网络通信</h2><p>仅通过本地 WiFi 使用 ADB 协议在端口 <code>5555</code> 上通信。</p><ul><li>所有数据均保留在局域网内</li><li>不向任何外部服务器或第三方发送数据</li><li>不需要互联网连接</li><li>仅连接到您提供的 IP 地址</li></ul></section>
+    <section><h2><span class="icon">💾</span> 设备上存储的数据</h2><p>仅在 iPhone 本地存储少量数据：</p><ul><li><strong>连接记录</strong> — IP 地址和端口号，用于快速重连</li><li><strong>RSA 密钥对</strong> — 本地生成用于 ADB 认证，存储在钥匙串中</li><li><strong>截图</strong> — 临时保存在内存中；仅在您选择保存时写入相册</li></ul><p>不会同步到 iCloud 或任何外部服务。</p></section>
+    <section><h2><span class="icon">🚫</span> 我们不收集的信息</h2><ul><li>不收集个人信息（姓名、邮箱、电话号码）</li><li>不进行使用分析或跟踪</li><li>不向外部发送崩溃报告</li><li>不使用广告标识符</li><li>不收集位置数据</li><li>不包含任何第三方 SDK 或分析框架</li></ul></section>
+    <section><h2><span class="icon">📸</span> 照片与媒体</h2><p>仅在您选择保存截图时才请求相册权限。此权限为可选。</p></section>
+    <section><h2><span class="icon">🌐</span> 本地网络访问</h2><p>本地网络权限用于连接 WiFi 上的安卓设备，是核心功能所必需的。</p></section>
+    <section><h2><span class="icon">👶</span> 儿童隐私</h2><p>AirHQ 不收集任何用户的个人数据，包括 13 岁以下的儿童。</p></section>
+    <section><h2><span class="icon">📝</span> 政策变更</h2><p>我们可能会不时更新本隐私政策。变更将在本页面上反映。</p></section>
+    <section><h2><span class="icon">📧</span> 联系方式</h2><p>如果您对本隐私政策有任何疑问：</p><p><code id="email-zh">loading...</code></p></section>
   </div>
 </main>
-
-<footer>
-  <p>&copy; 2026 AirHQ &nbsp;·&nbsp; <a href="index.html">Home</a> &nbsp;·&nbsp; <a href="support.html">Support</a></p>
-</footer>
-
+<footer><p>&copy; 2026 AirHQ &nbsp;·&nbsp; <a href="index.html">Home</a> &nbsp;·&nbsp; <a href="support.html">Support</a></p></footer>
 <script>
 function switchLang(lang) {
   document.getElementById('lang-en').classList.toggle('hidden', lang !== 'en');
@@ -190,6 +82,9 @@ function switchLang(lang) {
   document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
   document.getElementById('page-title').textContent = lang === 'en' ? 'Privacy Policy' : '隐私政策';
 }
+var e = ['zhvxxh','gmail.com'].join(String.fromCharCode(64));
+document.getElementById('email-en').textContent = e;
+document.getElementById('email-zh').textContent = e;
 </script>
 </body>
 </html>
